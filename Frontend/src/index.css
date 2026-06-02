@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: black !important;
+  font-weight: bold;
+  transform: scale(1.0);
+  background-color: rgb(40, 226, 195);
+  border-radius: 50%;
+
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #7e6842 !important; /* amber shade */
+
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
