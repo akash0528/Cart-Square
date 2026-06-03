@@ -1,4 +1,4 @@
-import Order from "../Controller/order.js";
+import Order from "../Controller/Order.js";
 import CreateRazorPay from "../Controller/RazerPayment.js";
 import Auth from "../Middleware/Auth.js";
 import express from "express"
