@@ -1,6 +1,6 @@
 import express from "express"
 import AdminDashboard from "../Controller/GetDashboard.js"
-import order from "../Controller/order.js"
+import order from "../Controller/Order.js"
 import Auth from "../Middleware/Auth.js"
 
 const AdminDashboardRoutes = express.Router()
