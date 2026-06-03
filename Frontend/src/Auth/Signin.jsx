@@ -41,7 +41,7 @@ const SignIn = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = "https://cart-square.onrender.com/api/auth/google";
   };
 
   if (loading) {

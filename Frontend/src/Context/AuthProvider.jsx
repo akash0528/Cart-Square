@@ -9,12 +9,16 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await Api.get("/auth/get-me", {
-          withCredentials: true,
-        });
+        const res = await Api.get("/auth/get-me");
         setUser(res.data.user);
       } catch (error) {
-        setUser(null);
+        try {
+          await Api.post("/auth/refresh-token");
+          const res = await Api.get("/auth/get-me");
+          setUser(res.data.user);
+        } catch {
+          setUser(null);
+        }
       } finally {
         setloading(false);
       }
@@ -44,6 +48,17 @@ const AuthProvider = ({ children }) => {
   const updateUser = (newUser) => {
     setUser(newUser);
   };
+
+  useEffect(() => {
+    const handleForceLogout = () => {
+      setUser(null);
+      // navigate("/signin"); // agar useNavigate available ho
+      window.location.href = "/signin"; // hard redirect
+    };
+
+    window.addEventListener("force-logout", handleForceLogout);
+    return () => window.removeEventListener("force-logout", handleForceLogout);
+  }, []);
 
   return (
     <AuthContext.Provider

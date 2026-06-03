@@ -23,7 +23,7 @@ import WishlistRouter from "./Routes/Wishlist.js"
 const app = express()
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://cart-square.vercel.app",
     credentials:true
 }))
 

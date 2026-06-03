@@ -13,7 +13,7 @@ UserRouter.get("/google",
 
 UserRouter.get("/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "http://localhost:5173/signin?error=true",
+    failureRedirect: `${process.env.CLIENT_URL}/signin?error=true`,
     session: true,
   }),
   User.googleCallback

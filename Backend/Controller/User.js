@@ -86,18 +86,18 @@ const signIn = async (req,res) => {
     const accessToken = jwt.sign({
         id: findUser._id,
         sessionId: sessionInfo.id
-    }, process.env.JWT_SECRET,{expiresIn:"3h"})
+    }, process.env.JWT_SECRET,{expiresIn:"15m"})
 
     res.cookie("refreshToken",refreshToken,{
         httpOnly:true,
-        secure:false,
+        secure:true,
         sameSite : "lax",
         maxAge : 7 * 24 * 60 * 60 * 1000 // 7days
     })
 
     res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: "lax",
         maxAge: 15 * 60 * 1000
 });
@@ -120,12 +120,12 @@ const signIn = async (req,res) => {
 }
 
 const getMe = async (req,res) => {
-    const token = req.cookies.accessToken;
+   const token = req.cookies.accessToken;
 
     if (!token) {
       return res.status(200).json({ user: null });
     }
-
+  try {
     const decoded = jwt.verify(token,process.env.JWT_SECRET)
     
     const user = await User.findById(decoded.id)
@@ -143,7 +143,9 @@ const getMe = async (req,res) => {
             role: user.role
         }
     })
-    
+  } catch (err) {
+    return res.status(401).json({ user: null });
+  }
 } 
 
 const refreshToken = async (req, res) => {
@@ -183,14 +185,14 @@ const refreshToken = async (req, res) => {
 
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
     maxAge: 15 * 60 * 1000
   })
 
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000
   })
@@ -227,12 +229,12 @@ const refreshToken = async (req, res) => {
   
   res.clearCookie("accessToken", {
     httpOnly: true,
-    secure:   false,
+    secure:   true,
     sameSite: "lax",
   });
   res.clearCookie("refreshToken", {
     httpOnly: true,
-    secure:   false,
+    secure:   true,
     sameSite: "lax",
   });
 
@@ -297,8 +299,8 @@ const logOutAll = async (req,res) => {
   const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "15m" });
   const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-  res.cookie("accessToken", accessToken, { httpOnly: true, secure: false, sameSite: "lax", maxAge: 15 * 60 * 1000 });
-  res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: false, sameSite: "lax", maxAge: 7 * 24 * 60 * 60 * 1000 });
+  res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 15 * 60 * 1000 });
+  res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 7 * 24 * 60 * 60 * 1000 });
 
   return res.status(200).json({
     message: "Email verified successfully",
@@ -339,22 +341,22 @@ const googleCallback = async (req, res) => {
     // AccessToken cookie
 res.cookie("accessToken", accessToken, {
   httpOnly: true,
-  secure:   false,
-  sameSite: "lax", // ← strict se lax karo
+  secure:   true,
+  sameSite: "lax", 
   maxAge:   15 * 60 * 1000,
 });
 
 // RefreshToken cookie
 res.cookie("refreshToken", refreshToken, {
   httpOnly: true,
-  secure:   false,
-  sameSite: "lax", // ← strict se lax karo
+  secure:   true,
+  sameSite: "lax", 
   maxAge:   7 * 24 * 60 * 60 * 1000,
 });
-    res.redirect("http://localhost:5173/home");
+    res.redirect(`${process.env.CLIENT_URL}/home`);
   } catch (err) {
     console.log(err);
-    res.redirect("http://localhost:5173/signin?error=true");
+    res.redirect("https://cart-square.vercel.app/signin?error=true");
   }
 };
 
