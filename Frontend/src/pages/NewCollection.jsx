@@ -9,12 +9,15 @@ import wishListContext from "../Context/WishlistContext";
 import { Heart } from "lucide-react";
 import Api from "../Api/axios";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../Context/AuthContext";
+import { toast } from "react-toastify";
 
 const NewCollection = () => {
   const [NewArrivalData, setArrivalData] = useState([]);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const { wishlist, toggleWishlist } = useContext(wishListContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const fetchCollection = async () => {
@@ -100,6 +103,10 @@ const NewCollection = () => {
                       size={20}
                       onClick={(e) => {
                         e.stopPropagation();
+                        if (!user) {
+                          toast.warn("Please Signin");
+                          return;
+                        }
                         toggleWishlist(item);
                       }}
                       className={`cursor-pointer shrink-0 mt-0.5 transition-colors ${

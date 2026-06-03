@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import BlackShirt from "../src/assets/BlackShirt.webp";
 import { Heart } from "lucide-react";
 import wishListContext from "../Context/WishlistContext";
 import AddCartContext from "../Context/AddCartContext";

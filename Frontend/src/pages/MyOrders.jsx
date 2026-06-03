@@ -10,7 +10,7 @@ import {
   CreditCard,
 } from "lucide-react";
 import Swal from "sweetalert2";
-import Api from "./Api/axios";
+import Api from "../Api/axios";
 
 const statusConfig = {
   processing: {

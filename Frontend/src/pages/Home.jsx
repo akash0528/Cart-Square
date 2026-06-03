@@ -1,8 +1,8 @@
-import BlackShirt from "../src/assets/1/14.avif";
+import BlackShirt from "../assets/1/14.avif";
 import { useContext, useEffect, useState } from "react";
 import wishListContext from "../Context/WishlistContext";
 import { Heart, Proportions } from "lucide-react";
-import NewCollection from "./NewCollection";
+import NewCollection from "../pages/NewCollection";
 import AddCartContext from "../Context/AddCartContext";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../Context/AuthContext";

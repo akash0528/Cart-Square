@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BlackShirt from "../src/assets/1/18.avif";
+import BlackShirt from "../assets/1/18.avif";
 import { useNavigate } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 

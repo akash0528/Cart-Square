@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import AddCartContext from "./Context/AddCartContext";
+import AddCartContext from "../Context/AddCartContext";
 import { Trash2, Plus, Minus, ShoppingBag, Heart } from "lucide-react";
-import wishListContext from "./Context/WishlistContext";
+import wishListContext from "../Context/WishlistContext";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "./Context/AuthContext";
+import AuthContext from "../Context/AuthContext";
 import { toast } from "react-toastify";
 import { PropagateLoader } from "react-spinners";
 
