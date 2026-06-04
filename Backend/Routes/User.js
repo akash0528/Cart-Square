@@ -11,13 +11,18 @@ UserRouter.get("/google",
   passport.authenticate("google", { scope: ["profile", "email"],prompt: "select_account", session:false })
 );
 
-UserRouter.get("/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: `${process.env.CLIENT_URL}/signin?error=true`,
-    session: false,
-  }),
-  User.googleCallback
-);
+UserRouter.get("/google/callback", (req, res, next) => {
+  passport.authenticate("google", { session: false }, async (err, user, info) => {
+    // if not find user & error 
+    if (err || !user) {
+      console.log("Auth Error:", err);
+      return res.redirect(`${process.env.CLIENT_URL}/signin?error=true`);
+    }
+
+    req.user = user;
+    next();
+  })(req, res, next);
+}, User.googleCallback);
 
 
 UserRouter.post("/signup", User.signUp)

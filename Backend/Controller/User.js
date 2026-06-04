@@ -311,6 +311,7 @@ const logOutAll = async (req,res) => {
     // Google OAuth callback handler
 
 const googleCallback = async (req, res) => {
+    if (res.headersSent) return;
   try {
     console.log("REQ.USER =>", req.user);    
     const user = req.user;
