@@ -309,10 +309,10 @@ const logOutAll = async (req,res) => {
 };
 
     // Google OAuth callback handler
-// ✅ Pura fixed googleCallback
+
 const googleCallback = async (req, res) => {
   try {
-    console.log("REQ.USER =>", req.user);
+    console.log("REQ.USER =>", req.user);    
     const user = req.user;
 
     const refreshToken = jwt.sign(
