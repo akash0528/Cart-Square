@@ -8,13 +8,13 @@ const UserRouter = express.Router()
 
 // ── Google OAuth ──────────────────────
 UserRouter.get("/google",
-  passport.authenticate("google", { scope: ["profile", "email"],prompt: "select_account" })
+  passport.authenticate("google", { scope: ["profile", "email"],prompt: "select_account", session:false })
 );
 
 UserRouter.get("/google/callback",
   passport.authenticate("google", {
     failureRedirect: `${process.env.CLIENT_URL}/signin?error=true`,
-    session: true,
+    session: false,
   }),
   User.googleCallback
 );

@@ -8,7 +8,6 @@ import mongoose from "mongoose"
 import cookieParser from "cookie-parser"
 import UserRouter from "./Routes/User.js"
 import ProductRouter from "./Routes/Products.js"
-import session from "express-session"
 import passport from "./config/Passport.js"
 
 //Admin Routes
@@ -22,6 +21,8 @@ import WishlistRouter from "./Routes/Wishlist.js"
 
 const app = express()
 
+app.set("trust proxy", 1)
+
 app.use(cors({
     origin: "https://cart-square.vercel.app",
     credentials:true
@@ -29,18 +30,6 @@ app.use(cors({
 
 app.use(express.json())
 app.use(cookieParser())
-
-app.use(session({
-  secret:            process.env.SESSION_SECRET,
-  resave:            false,
-  saveUninitialized: false,
-  cookie:{
-    secure:true,
-    sameSite:"none",
-    httpOnly:true,
-    maxAge: 24 * 60 * 60 * 1000
-  }
-}));
 
 app.use(passport.initialize())
 app.use(passport.session())

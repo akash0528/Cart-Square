@@ -91,14 +91,14 @@ const signIn = async (req,res) => {
     res.cookie("refreshToken",refreshToken,{
         httpOnly:true,
         secure:true,
-        sameSite : "lax",
+        sameSite : "none",
         maxAge : 7 * 24 * 60 * 60 * 1000 // 7days
     })
 
     res.cookie("accessToken", accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 15 * 60 * 1000
 });
 
@@ -186,14 +186,14 @@ const refreshToken = async (req, res) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
     maxAge: 15 * 60 * 1000
   })
 
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000
   })
 
@@ -230,12 +230,12 @@ const refreshToken = async (req, res) => {
   res.clearCookie("accessToken", {
     httpOnly: true,
     secure:   true,
-    sameSite: "lax",
+    sameSite: "none",
   });
   res.clearCookie("refreshToken", {
     httpOnly: true,
     secure:   true,
-    sameSite: "lax",
+    sameSite: "none",
   });
 
   return res.status(200).json({ message: "Logged Out Successfully" });
@@ -299,8 +299,8 @@ const logOutAll = async (req,res) => {
   const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "15m" });
   const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
-  res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 15 * 60 * 1000 });
-  res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, sameSite: "lax", maxAge: 7 * 24 * 60 * 60 * 1000 });
+  res.cookie("accessToken", accessToken, { httpOnly: true, secure: true, sameSite: "none", maxAge: 15 * 60 * 1000 });
+  res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, sameSite: "none", maxAge: 7 * 24 * 60 * 60 * 1000 });
 
   return res.status(200).json({
     message: "Email verified successfully",
