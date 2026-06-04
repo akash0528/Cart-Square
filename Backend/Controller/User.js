@@ -309,9 +309,7 @@ const logOutAll = async (req,res) => {
 };
 
     // Google OAuth callback handler
-
 const googleCallback = async (req, res) => {
-    if (res.headersSent) return;
   try {
     console.log("REQ.USER =>", req.user);    
     const user = req.user;
@@ -355,7 +353,7 @@ res.cookie("refreshToken", refreshToken, {
   sameSite: "none", 
   maxAge:   7 * 24 * 60 * 60 * 1000,
 });
-    res.redirect(`${process.env.CLIENT_URL}/home`);
+    return res.redirect(`${process.env.CLIENT_URL}/home`);
   } catch (err) {
     console.log(err);
     res.redirect("https://cart-square.vercel.app/signin?error=true");

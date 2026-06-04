@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
       try {
         const res = await Api.get("/auth/get-me");
         setUser(res.data.user);
@@ -25,7 +26,6 @@ const AuthProvider = ({ children }) => {
     };
     fetchUser();
   }, []);
-
   const login = (userData) => {
     setUser(userData);
   };
