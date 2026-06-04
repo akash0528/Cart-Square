@@ -22,6 +22,8 @@ import WishlistRouter from "./Routes/Wishlist.js"
 
 const app = express()
 
+app.set("trust proxy", 1)
+
 app.use(cors({
     origin: "https://cart-square.vercel.app",
     credentials:true
@@ -34,6 +36,12 @@ app.use(session({
   secret:            process.env.SESSION_SECRET,
   resave:            false,
   saveUninitialized: false,
+  cookie:{
+    secure:true,
+    sameSite:"none",
+    httpOnly:true,
+    maxAge: 24 * 60 * 60 * 1000
+  }
 }));
 
 app.use(passport.initialize())
