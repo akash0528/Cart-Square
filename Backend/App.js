@@ -22,8 +22,6 @@ import WishlistRouter from "./Routes/Wishlist.js"
 
 const app = express()
 
-app.set("trust proxy", 1)
-
 app.use(cors({
     origin: "https://cart-square.vercel.app",
     credentials:true
